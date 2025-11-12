@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Urbex Scope – Lost Places Europa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Unbounded', sans-serif;
+      background: #000;
+      color: #eee;
+      opacity: 0;
+      animation: fadeIn 1.5s ease-out forwards;
+    }
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    nav {
+      background: #111;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      font-weight: 600;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: orange;
+      text-decoration: none;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .site-name {
+      color:#FFA500;
+      font-weight:bold;
+      font-size:1.2rem;
+      margin-right:auto;
+      text-shadow:0 0 6px #FFA500;
+    }
+
+    .hero {
+      height: 80vh;
+      background: url('Deckblatt.jpg') center center / cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+    }
+    .hero-content {
+      position: relative;
+      color: #fff;
+      max-width: 800px;
+      padding: 20px;
+    }
+    .hero-content h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+    }
+    .hero-content h2 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      font-weight: normal;
+      color: #ccc;
+    }
+    .hero-content a {
+      display: inline-block;
+      background: orange;
+      color: #000;
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .hero-content a:hover {
+      background: #ffb733;
+      transform: scale(1.05);
+    }
+
+    .section {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section h2 {
+      color: orange;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+    }
+
+    .feature {
+      background: #111;
+      padding: 30px;
+      border-radius: 8px;
+      flex: 1 1 250px;
+      text-align: center;
+      transition: 0.3s;
+      cursor: pointer;
+      text-decoration: none;
+      color: #eee;
+      box-shadow: 0 0 10px rgba(255,165,0,0.1);
+    }
+    .feature:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(255,165,0,0.3);
+      background: #181818;
+    }
+    .feature h3 {
+      color: orange;
+      margin-bottom: 10px;
+    }
+    .feature p {
+      color: #ccc;
+      font-size: 0.95rem;
+    }
+
+    .text-section {
+      background: #111;
+      border-radius: 8px;
+      padding: 30px;
+      line-height: 1.6;
+    }
+
+    footer {
+      position: relative;
+      height: 300px;
+      background: #222;
+      color: #ccc;
+      text-align: center;
+      padding: 40px 20px 0 20px;
+      overflow: hidden;
+      font-size: .9rem;
+    }
+    footer a {
+      color: orange;
+      text-decoration: none;
+      position: relative;
+      z-index: 10;
+    }
+
+    .waveWrapper {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      top: 0;
+      left: 0;
+      background: #222;
+      z-index: 0;
+    }
+    .waveWrapperInner {
+      position: absolute;
+      width: 400%;
+      height: 100%;
+      background-repeat: repeat-x;
+      background-position: 0 bottom;
+      transform: translate3d(0, 0, 0);
+    }
+    .bgTop { z-index: 15; opacity: .5; }
+    .bgMiddle { z-index: 10; opacity: .75; }
+    .bgBottom { z-index: 5; opacity: 1; }
+    .wave {
+      background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 960 120' xmlns='http://www.w3.org/2000/svg'><path fill='%23888888' d='M0 60 C240 0 720 120 960 60 V120 H0 Z'></path></svg>");
+      position: absolute;
+      width: 400%;
+      height: 100%;
+      background-size: contain;
+    }
+    .waveTop { animation: moveWave 30s linear infinite; top: -20px; }
+    .waveMiddle { animation: moveWave 40s linear infinite; top: 0; }
+    .waveBottom { animation: moveWave 50s linear infinite; top: 20px; }
+    @keyframes moveWave {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <span class="site-name">Urbex Scope</span>
+    <a href="index.html">Start</a>
+    <a href="karte.html">Karte</a>
+    <a href="galerie.html">Galerie</a>
+    <a href="daily.html">Daily</a>
+    <a href="mitmachen.html">Mitmachen</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Lost Places Europa</h1>
+      <h2>Entdecken. Dokumentieren. Bewahren.</h2>
+      <a href="karte.html">Karte öffnen</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Was wir anbieten</h2>
+    <div class="features">
+      <a href="galerie.html" class="feature">
+        <h3>Galerie</h3>
+        <p>Unsere Bildergalerie zeigt eindrucksvolle Aufnahmen und Geschichten zu den verlassenen Orten, die wir entdecken.</p>
+      </a>
+      <a href="daily.html" class="feature">
+        <h3>Daily</h3>
+        <p>Hier kannst du jeden Tag einen neuen Lost Place entdecken und in die vergessene Welt vergangener Orte eintauchen.</p>
+      </a>
+      <a href="mitmachen.html" class="feature">
+        <h3>Mitmachen</h3>
+        <p>Du kennst einen Lost Place oder willst eigene Bilder einreichen? Hilf mit, die Karte zu erweitern und Geschichten zu erzählen.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Unsere Mission</h2>
+    <div class="text-section">
+      <p>Urbex Scope verbindet Menschen, die Europas vergessene Orte mit Respekt und Neugier erkunden. Wir fangen diese Orte in Bildern, Geschichten und Erinnerungen ein und zeigen ihren einzigartigen Charme. Dabei nehmen wir nichts mit und hinterlassen keine Spuren – nur Eindrücke, die bleiben.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="waveWrapper">
+      <div class="waveWrapperInner bgTop"><div class="wave waveTop"></div></div>
+      <div class="waveWrapperInner bgMiddle"><div class="wave waveMiddle"></div></div>
+      <div class="waveWrapperInner bgBottom"><div class="wave waveBottom"></div></div>
+    </div>
+    <div style="position:relative;z-index:10;padding:20px;">
+      © 2025 Urbex Scope – Lost Places Europa |
+      <a href="impressum.html">Impressum</a> |
+      <a href="rechtliches.html">Datenschutz</a>
+    </div>
+  </footer>
+
+  <script>
+    const scrollElements = document.querySelectorAll('.scroll-in');
+    const scrollCallback = () => {
+      scrollElements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+          el.classList.add('visible');
+        }
+      });
+    };
+    window.addEventListener('scroll', scrollCallback);
+    window.addEventListener('load', scrollCallback);
+  </script>
+</body>
+</html>

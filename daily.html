@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Urbex Scope – Lost Place des Tages</title>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Unbounded', sans-serif;
+      background: #000;
+      color: #eee;
+      opacity: 0;
+      animation: fadeIn 1.5s ease-out forwards;
+      padding-bottom: 100px; /* Platz für Footer */
+    }
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    nav {
+      background: #111;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      font-weight: 600;
+      flex-wrap: wrap;
+    }
+    nav a { color: orange; text-decoration: none; }
+    nav a:hover { text-decoration: underline; }
+
+    .site-name {
+      color:#FFA500;
+      font-weight:bold;
+      font-size:1.2rem;
+      margin-right:auto;
+      text-shadow:0 0 6px #FFA500;
+    }
+
+    .content {
+      padding: 40px 20px 60px;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .daily-place {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-top: 40px;
+      margin-bottom: 100px;
+    }
+
+    .daily-place .bg-neutral-900 {
+      background: #111;
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 0 25px rgba(255,165,0,0.2);
+      width: 100%;
+      max-width: 700px;
+      color: #fff;
+      position: relative;
+      z-index: 1; /* damit Karte hinter Footer bleibt */
+    }
+
+    .daily-title {
+      font-size: 2.2rem;
+      color: #FFA500;
+      margin-bottom: 25px;
+      margin-top: 0;
+      text-shadow: 0 0 10px #FFA500;
+    }
+
+    .place-name {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-top: 10px;
+      color: #fff;
+    }
+
+    .place-desc {
+      font-size: 1rem;
+      color: #ccc;
+      margin-top: 10px;
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 30px;
+      background: #FFA500;
+      color: #000;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .button:hover {
+      background: #ffb733;
+      transform: scale(1.05);
+    }
+
+    #map {
+      height: 400px;
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 20px;
+      z-index: 0; /* unter Footer */
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      background: #222;
+      color: #ccc;
+      text-align: center;
+      padding-top: 20px;
+      font-size: 0.9rem;
+      border-top: 1px solid #333;
+      z-index: 10; /* über der Karte */
+    }
+    footer a { color: orange; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <nav>
+    <span class="site-name">Urbex Scope</span>
+    <a href="index.html">Start</a>
+    <a href="karte.html">Karte</a>
+    <a href="galerie.html">Galerie</a>
+    <a href="daily.html">Daily</a>
+    <a href="mitmachen.html">Mitmachen</a>
+  </nav>
+
+  <div class="content">
+    <section class="daily-place">
+      <h2 class="daily-title">Lost Place des Tages</h2>
+      <div class="bg-neutral-900">
+        <h3 class="place-name"></h3>
+        <p class="place-desc"></p>
+        <a class="button" href="#" target="_blank">Navigation</a>
+        <div id="map"></div>
+      </div>
+    </section>
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    async function loadDailyPlace() {
+      try {
+        const response = await fetch("orte.json");
+        const places = await response.json();
+
+        if (!Array.isArray(places) || places.length === 0) {
+          throw new Error("Keine Orte gefunden!");
+        }
+
+        const startDate = new Date("2025-01-01");
+        const today = new Date();
+        const daysPassed = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+        const index = daysPassed % places.length;
+
+        const place = places[index];
+
+        const name = place.name || place.titel || "Unbekannter Ort";
+        const beschreibung = place.beschreibung || place.desc || "Keine Beschreibung verfügbar.";
+        const lat = place.lat;
+        const lng = place.lng;
+
+        document.querySelector(".place-name").textContent = name;
+        document.querySelector(".place-desc").textContent = beschreibung;
+
+        document.querySelector(".button").href = lat && lng 
+          ? `https://www.google.com/maps/search/?api=1&query=${lat},${lng}` 
+          : "#";
+
+        if(lat && lng){
+          const map = L.map('map', { zoomControl: false }).setView([lat, lng], 16);
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19
+          }).addTo(map);
+          L.marker([lat, lng]).addTo(map).bindPopup(name).openPopup();
+        }
+      } catch (err) {
+        console.error("Fehler beim Laden:", err);
+        document.querySelector(".place-name").textContent = "Fehler beim Laden der Daten";
+        document.querySelector(".place-desc").textContent = "";
+        document.querySelector(".button").style.display = "none";
+      }
+    }
+
+    loadDailyPlace();
+  </script>
+
+  <footer>
+    © 2025 Urbex Scope – Lost Places Europa |
+    <a href="impressum.html">Impressum</a> |
+    <a href="rechtliches.html">Datenschutz</a>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Galerie – Urbex Scope</title>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Unbounded', sans-serif;
+      background: #000;
+      color: #eee;
+      font-weight: 600;
+    }
+
+    /* Navigation */
+    nav {
+      background: #111;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    nav .site-name {
+      color: #FFA500;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-right: auto;
+      text-shadow: 0 0 6px #FFA500;
+    }
+
+    nav a {
+      color: #FFA500;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    h1 {
+      text-align: center;
+      color: #FFA500;
+      padding: 40px 20px 20px;
+    }
+
+    /* Galerie Grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      padding: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #000; /* dunkles Schwarz */
+    }
+
+    .gallery-img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      border-radius: 8px;
+      cursor: pointer;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    .gallery-img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Instagram Section */
+    .instagram-section {
+      background: #000; /* gleiches Schwarz */
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .instagram-section h2 {
+      color: #FFA500;
+      margin-bottom: 30px;
+    }
+
+    .insta-embeds {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .insta-embeds iframe {
+      border: none;
+      width: 100%;
+      max-width: 360px;
+      height: 600px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(200,200,200,0.2);
+      background: #000;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 1000;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+    }
+
+    .lightbox.show {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    @media (max-width: 900px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <span class="site-name">Urbex Scope</span>
+    <a href="index.html">Start</a>
+    <a href="karte.html">Karte</a>
+    <a href="galerie.html">Galerie</a>
+    <a href="daily.html">Daily</a>
+    <a href="mitmachen.html">Mitmachen</a>
+  </nav>
+
+  <h1>Galerie</h1>
+
+  <div class="gallery-grid">
+    <img src="bilder/galerie.nr1.png.jpg" alt="Lost Place 1" class="gallery-img">
+    <img src="bilder/galerie.nr2.png.jpg" alt="Lost Place 2" class="gallery-img">
+    <img src="bilder/galerie.nr3.png.jpg" alt="Lost Place 3" class="gallery-img">
+    <img src="bilder/galerie.nr4.png.jpg" alt="Lost Place 4" class="gallery-img">
+    <img src="bilder/galerie.nr5.png.jpg" alt="Lost Place 5" class="gallery-img">
+    <img src="bilder/galerie.nr6.png.jpg" alt="Lost Place 6" class="gallery-img">
+  </div>
+
+  <section class="instagram-section">
+    <h2>Unsere Instagram-Beiträge</h2>
+    <div class="insta-embeds">
+      <iframe src="https://www.instagram.com/p/CiaiLxNK9J4/embed" allowtransparency="true"></iframe>
+      <iframe src="https://www.instagram.com/p/C4AubAnNXzx/embed" allowtransparency="true"></iframe>
+      <iframe src="https://www.instagram.com/p/DLiL7sqNdj6/embed" allowtransparency="true"></iframe>
+      <iframe src="https://www.instagram.com/p/DLQQPxqtZ6E/embed" allowtransparency="true"></iframe>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <img src="" alt="Vergrößertes Bild">
+  </div>
+
+  <script>
+    const galleryImages = document.querySelectorAll('.gallery-img');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+
+    galleryImages.forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('show');
+      });
+    });
+
+    lightbox.addEventListener('click', () => {
+      lightbox.classList.remove('show');
+      lightboxImg.src = '';
+    });
+  </script>
+
+</body>
+</html>
