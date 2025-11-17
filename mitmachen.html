@@ -21,7 +21,7 @@
       padding: 15px 30px;
       display: flex;
       align-items: center;
-      gap: 30px;
+      gap: 20px;
       font-weight: 600;
       flex-wrap: wrap;
     }
@@ -75,7 +75,7 @@
 
     input, textarea {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       margin-top: 8px;
       border: none;
       border-radius: 8px;
@@ -118,19 +118,29 @@
     }
 
     footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 80px;
+      position: relative;
       background: #222;
       color: #ccc;
       text-align: center;
-      padding-top: 20px;
+      padding: 20px 10px;
       font-size: 0.9rem;
       border-top: 1px solid #333;
     }
     footer a { color: orange; text-decoration: none; }
+
+    /* Mobile Anpassungen */
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      h1 { font-size: 1.8rem; }
+      p { font-size: 0.95rem; }
+      form { padding: 20px; }
+      input, textarea { font-size: 0.95rem; }
+      button { padding: 10px 20px; font-size: 0.95rem; }
+    }
   </style>
 </head>
 <body>
@@ -180,5 +190,3 @@
   </footer>
 </body>
 </html>
-
-
