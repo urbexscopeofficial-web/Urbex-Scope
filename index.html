@@ -16,43 +16,39 @@
     }
     @keyframes fadeIn { to { opacity: 1; } }
 
-   /* Navigation */
-nav {
-  background: #111;
-  padding: 15px 30px;
-  display: flex;
-  align-items: center;
-  gap: 30px;
-  flex-wrap: wrap; /* erlaubt mehrere Zeilen */
-  font-weight: 600;
-}
-
-nav .site-name {
-  color: #FFA500;
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-right: auto;
-  text-shadow: 0 0 6px #FFA500;
-}
-
-nav a {
-  color: #FFA500;
-  text-decoration: none;
-  white-space: nowrap; /* Links bleiben in sich selbst zusammen */
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-
-h1 {
-  text-align: center;
-  color: #FFA500;
-  padding: 40px 20px 20px;
-}
-
+    /* Navigation */
+    nav {
+      background: #111;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      font-weight: 600;
+      position: relative;
+      z-index: 20; /* NAVIGATION VOR ALLEM */
     }
 
+    nav .site-name {
+      color: #FFA500;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-right: auto;
+      text-shadow: 0 0 6px #FFA500;
+      white-space: nowrap;
+    }
+
+    nav a {
+      color: #FFA500;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* Hero-Bereich */
     .hero {
       height: 80vh;
       background: url('Deckblatt.jpg') center center / cover no-repeat;
@@ -62,29 +58,35 @@ h1 {
       text-align: center;
       position: relative;
     }
+
     .hero::before {
       content: '';
       position: absolute;
       inset: 0;
       background: rgba(0, 0, 0, 0.5);
+      z-index: 1; /* HINTER NAVIGATION */
     }
+
     .hero-content {
       position: relative;
+      z-index: 5; /* ÜBER OVERLAY */
       color: #fff;
       max-width: 800px;
       padding: 20px;
     }
+
     .hero-content h1 {
       font-size: 3rem;
       margin-bottom: 10px;
       text-shadow: 0 2px 6px rgba(0,0,0,0.6);
     }
+
     .hero-content h2 {
       font-size: 1.5rem;
       margin-bottom: 20px;
-      font-weight: normal;
       color: #ccc;
     }
+
     .hero-content a {
       display: inline-block;
       background: orange;
@@ -95,16 +97,19 @@ h1 {
       font-weight: bold;
       transition: 0.3s;
     }
+
     .hero-content a:hover {
       background: #ffb733;
       transform: scale(1.05);
     }
 
+    /* Sections */
     .section {
       padding: 60px 20px;
       max-width: 1200px;
       margin: 0 auto;
     }
+
     .section h2 {
       color: orange;
       text-align: center;
@@ -125,23 +130,20 @@ h1 {
       flex: 1 1 250px;
       text-align: center;
       transition: 0.3s;
-      cursor: pointer;
       text-decoration: none;
       color: #eee;
       box-shadow: 0 0 10px rgba(255,165,0,0.1);
     }
+
     .feature:hover {
       transform: scale(1.05);
       box-shadow: 0 0 20px rgba(255,165,0,0.3);
       background: #181818;
     }
+
     .feature h3 {
       color: orange;
       margin-bottom: 10px;
-    }
-    .feature p {
-      color: #ccc;
-      font-size: 0.95rem;
     }
 
     .text-section {
@@ -151,6 +153,7 @@ h1 {
       line-height: 1.6;
     }
 
+    /* Footer */
     footer {
       position: relative;
       height: 300px;
@@ -161,6 +164,7 @@ h1 {
       overflow: hidden;
       font-size: .9rem;
     }
+
     footer a {
       color: orange;
       text-decoration: none;
@@ -178,6 +182,7 @@ h1 {
       background: #222;
       z-index: 0;
     }
+
     .waveWrapperInner {
       position: absolute;
       width: 400%;
@@ -186,9 +191,11 @@ h1 {
       background-position: 0 bottom;
       transform: translate3d(0, 0, 0);
     }
+
     .bgTop { z-index: 15; opacity: .5; }
     .bgMiddle { z-index: 10; opacity: .75; }
     .bgBottom { z-index: 5; opacity: 1; }
+
     .wave {
       background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 960 120' xmlns='http://www.w3.org/2000/svg'><path fill='%23888888' d='M0 60 C240 0 720 120 960 60 V120 H0 Z'></path></svg>");
       position: absolute;
@@ -196,9 +203,11 @@ h1 {
       height: 100%;
       background-size: contain;
     }
+
     .waveTop { animation: moveWave 30s linear infinite; top: -20px; }
     .waveMiddle { animation: moveWave 40s linear infinite; top: 0; }
     .waveBottom { animation: moveWave 50s linear infinite; top: 20px; }
+
     @keyframes moveWave {
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
@@ -206,6 +215,7 @@ h1 {
   </style>
 </head>
 <body>
+
   <nav>
     <span class="site-name">Urbex Scope</span>
     <a href="index.html">Start</a>
@@ -228,15 +238,15 @@ h1 {
     <div class="features">
       <a href="galerie.html" class="feature">
         <h3>Galerie</h3>
-        <p>Unsere Bildergalerie zeigt eindrucksvolle Aufnahmen und Geschichten zu den verlassenen Orten, die wir entdecken.</p>
+        <p>Unsere Bildergalerie zeigt eindrucksvolle Aufnahmen zu verlassenen Orten.</p>
       </a>
       <a href="daily.html" class="feature">
         <h3>Daily</h3>
-        <p>Hier kannst du jeden Tag einen neuen Lost Place entdecken und in die vergessene Welt vergangener Orte eintauchen.</p>
+        <p>Jeden Tag ein neuer Lost Place.</p>
       </a>
       <a href="mitmachen.html" class="feature">
         <h3>Mitmachen</h3>
-        <p>Du kennst einen Lost Place oder willst eigene Bilder einreichen? Hilf mit, die Karte zu erweitern und Geschichten zu erzählen.</p>
+        <p>Reiche eigene Orte & Bilder ein.</p>
       </a>
     </div>
   </section>
@@ -244,7 +254,7 @@ h1 {
   <section class="section">
     <h2>Unsere Mission</h2>
     <div class="text-section">
-      <p>Urbex Scope verbindet Menschen, die Europas vergessene Orte mit Respekt und Neugier erkunden. Wir fangen diese Orte in Bildern, Geschichten und Erinnerungen ein und zeigen ihren einzigartigen Charme. Dabei nehmen wir nichts mit und hinterlassen keine Spuren – nur Eindrücke, die bleiben.</p>
+      <p>Urbex Scope verbindet Menschen, die Europas vergessene Orte mit Respekt erkunden.</p>
     </div>
   </section>
 
@@ -261,19 +271,5 @@ h1 {
     </div>
   </footer>
 
-  <script>
-    const scrollElements = document.querySelectorAll('.scroll-in');
-    const scrollCallback = () => {
-      scrollElements.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 100) {
-          el.classList.add('visible');
-        }
-      });
-    };
-    window.addEventListener('scroll', scrollCallback);
-    window.addEventListener('load', scrollCallback);
-  </script>
 </body>
 </html>
-
