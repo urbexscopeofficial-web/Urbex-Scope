@@ -20,15 +20,18 @@
       background: #111;
       padding: 15px 30px;
       display: flex;
-      align-items: center;
-      gap: 15px;
+      flex-wrap: wrap;
+      gap: 10px;
       font-weight: 600;
-      flex-wrap: wrap; /* erlaubt mehrere Zeilen */
+      max-height: 120px; /* Maximal zwei Zeilen */
+      overflow: hidden;
     }
-    nav a { 
-      color: orange; 
-      text-decoration: none; 
-      white-space: nowrap; 
+    nav a {
+      color: orange;
+      text-decoration: none;
+      white-space: nowrap;
+      flex: 1 1 calc(50% - 10px); /* Verteilt die Links auf zwei Zeilen */
+      text-align: center;
     }
     nav a:hover { text-decoration: underline; }
 
@@ -38,6 +41,7 @@
       font-size:1.2rem;
       margin-right:auto;
       text-shadow:0 0 6px #FFA500;
+      flex: 1 1 100%; /* Name nimmt ganze Zeile */
     }
 
     .content {
@@ -135,13 +139,10 @@
     /* Mobile Anpassungen */
     @media (max-width: 600px) {
       nav {
-        flex-wrap: wrap;
-        justify-content: flex-start;
+        max-height: none; /* erlauben flex-wrap auf kleineren Bildschirmen */
       }
       nav a {
-        flex: 0 1 auto; /* Links nehmen so viel Platz wie nötig */
-        min-width: 140px; /* verhindert, dass zu viele Zeilen entstehen */
-        text-align: center;
+        flex: 1 1 50%; /* maximal zwei Zeilen */
       }
       h1 { font-size: 1.8rem; }
       p { font-size: 0.95rem; }
