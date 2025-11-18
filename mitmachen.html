@@ -20,12 +20,13 @@
       background: #111;
       padding: 15px 30px;
       display: flex;
-      flex-wrap: wrap; /* erlaubt mehrere Zeilen */
       align-items: center;
       gap: 20px;
       font-weight: 600;
-      justify-content: flex-start;
+      flex-wrap: wrap;
     }
+    nav a { color: orange; text-decoration: none; }
+    nav a:hover { text-decoration: underline; }
 
     .site-name {
       color:#FFA500;
@@ -33,18 +34,7 @@
       font-size:1.2rem;
       margin-right:auto;
       text-shadow:0 0 6px #FFA500;
-      white-space: nowrap;
     }
-
-    nav a {
-      color: orange;
-      text-decoration: none;
-      white-space: nowrap;
-      flex: 1 0 auto; /* erlaubt Umbruch bei Bedarf */
-      text-align: center;
-    }
-
-    nav a:hover { text-decoration: underline; }
 
     .content {
       padding: 60px 20px 120px;
@@ -141,12 +131,13 @@
     /* Mobile Anpassungen */
     @media (max-width: 600px) {
       nav {
-        flex-wrap: wrap; /* erlaubt zwei Zeilen */
+        flex-wrap: wrap; /* erlaubt mehrere Zeilen */
         justify-content: flex-start;
       }
       nav a {
-        flex: 1 1 45%; /* zwei Links pro Zeile bei kleinen Bildschirmen */
+        flex: 1 1 48%; /* maximal 2 Links pro Zeile */
         margin-bottom: 5px;
+        text-align: center;
       }
       h1 { font-size: 1.8rem; }
       p { font-size: 0.95rem; }
@@ -203,4 +194,3 @@
   </footer>
 </body>
 </html>
-
