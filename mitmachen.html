@@ -21,11 +21,15 @@
       padding: 15px 30px;
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 15px;
       font-weight: 600;
-      flex-wrap: wrap;
+      flex-wrap: wrap; /* erlaubt mehrere Zeilen */
     }
-    nav a { color: orange; text-decoration: none; }
+    nav a { 
+      color: orange; 
+      text-decoration: none; 
+      white-space: nowrap; 
+    }
     nav a:hover { text-decoration: underline; }
 
     .site-name {
@@ -131,12 +135,12 @@
     /* Mobile Anpassungen */
     @media (max-width: 600px) {
       nav {
-        flex-wrap: wrap; /* erlaubt mehrere Zeilen */
+        flex-wrap: wrap;
         justify-content: flex-start;
       }
       nav a {
-        flex: 1 1 48%; /* maximal 2 Links pro Zeile */
-        margin-bottom: 5px;
+        flex: 0 1 auto; /* Links nehmen so viel Platz wie nötig */
+        min-width: 140px; /* verhindert, dass zu viele Zeilen entstehen */
         text-align: center;
       }
       h1 { font-size: 1.8rem; }
@@ -194,3 +198,4 @@
   </footer>
 </body>
 </html>
+
