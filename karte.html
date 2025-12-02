@@ -13,8 +13,8 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
 
-  <!-- Leaflet Search CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-search/dist/leaflet-search.min.css" />
+  <!-- Leaflet Control Geocoder CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
 
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -22,8 +22,8 @@
   <!-- Marker Cluster JS -->
   <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
 
-  <!-- Leaflet Search JS -->
-  <script src="https://unpkg.com/leaflet-control-search/dist/leaflet-search.min.js"></script>
+  <!-- Leaflet Control Geocoder JS -->
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
   <style>
     body {
@@ -46,8 +46,9 @@
       color: white;
     }
 
-    .leaflet-control-search {
-      max-width: 200px;
+    .leaflet-control-geocoder {
+      max-width: 250px;
+      z-index: 1000;
     }
   </style>
 </head>
@@ -67,7 +68,7 @@
     // Marker Cluster erstellen
     const markerCluster = L.markerClusterGroup();
 
-    // Layer für die Suche
+    // Layer für die Marker
     const markersLayer = new L.LayerGroup();
 
     // Orte aus JSON laden
@@ -78,10 +79,8 @@
       })
       .then(data => {
         data.forEach(ort => {
-          // Marker erstellen
           const marker = L.marker([ort.lat, ort.lng], { title: ort.name });
 
-          // Popup mit Name, Beschreibung und Google Maps Link
           marker.bindPopup(`
             <div class="custom-popup">
               <b>${ort.name}</b><br>
@@ -92,37 +91,33 @@
             </div>
           `);
 
-          // Marker zum Cluster und zum Such-Layer hinzufügen
           markerCluster.addLayer(marker);
           markersLayer.addLayer(marker);
         });
 
-        // Cluster zur Karte hinzufügen
         map.addLayer(markerCluster);
-
-        // Suchleiste hinzufügen
-        const searchControl = new L.Control.Search({
-          layer: markersLayer,
-          propertyName: 'title',
-          marker: false,
-          moveToLocation: function(latlng, title, map) {
-            map.setView(latlng, 15);
-          }
-        });
-
-        searchControl.on('search:locationfound', function(e) {
-          e.layer.openPopup();
-        });
-
-        map.addControl(searchControl);
       })
       .catch(err => {
         console.error(err);
         alert('Die Ortsdaten konnten nicht geladen werden. Prüfe bitte orte.json und den Server.');
       });
+
+    // Geocoder-Suche für Städte/Bundesländer weltweit
+    L.Control.geocoder({
+        defaultMarkGeocode: false,
+        placeholder: 'Stadt oder Bundesland suchen…'
+    })
+    .on('markgeocode', function(e) {
+        const bbox = e.geocode.bbox;
+        if (bbox) {
+            map.fitBounds(bbox);
+        } else if (e.geocode.center) {
+            map.setView(e.geocode.center, 10);
+        }
+    })
+    .addTo(map);
+
   </script>
 
 </body>
 </html>
-
-
