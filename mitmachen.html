@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Urbex Scope – Lost Places Europa</title>
+  <title>Urbex Scope – Mitmachen</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
     body {
       margin: 0;
@@ -16,31 +18,29 @@
     }
     @keyframes fadeIn { to { opacity: 1; } }
 
-    /* Navigation */
+    /* ---------------- Navigation Desktop ---------------- */
     nav {
       background: #111;
       padding: 15px 30px;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 30px;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       font-weight: 600;
-      position: relative;
-      z-index: 20; /* NAVIGATION VOR ALLEM */
     }
 
-    nav .site-name {
-      color: #FFA500;
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-right: auto;
-      text-shadow: 0 0 6px #FFA500;
+    .site-name {
+      color:#FFA500;
+      font-weight:bold;
+      font-size:1.2rem;
+      text-shadow:0 0 6px #FFA500;
       white-space: nowrap;
     }
 
     nav a {
-      color: #FFA500;
+      color: orange;
       text-decoration: none;
+      margin-left: 25px;
       white-space: nowrap;
     }
 
@@ -48,172 +48,121 @@
       text-decoration: underline;
     }
 
-    /* Hero-Bereich */
-    .hero {
-      height: 80vh;
-      background: url('Deckblatt.jpg') center center / cover no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    /* ---------------- Navigation Mobile ---------------- */
+    @media (max-width: 700px) {
+      nav {
+        flex-wrap: wrap;
+        text-align: center;
+      }
+
+      .site-name {
+        flex: 1 1 100%;
+        margin-bottom: 10px;
+      }
+
+      nav a {
+        flex: 1 1 50%;
+        margin-left: 0;
+        padding: 8px 0;
+      }
+    }
+
+    /* ---------------- Inhalt ---------------- */
+    .content {
+      padding: 60px 20px 120px;
+      max-width: 900px;
+      margin: 0 auto;
       text-align: center;
-      position: relative;
     }
 
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 1; /* HINTER NAVIGATION */
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 5; /* ÜBER OVERLAY */
-      color: #fff;
-      max-width: 800px;
-      padding: 20px;
-    }
-
-    .hero-content h1 {
-      font-size: 3rem;
-      margin-bottom: 10px;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.6);
-    }
-
-    .hero-content h2 {
-      font-size: 1.5rem;
+    h1 {
+      font-size: 2.2rem;
+      color: #FFA500;
+      text-shadow: 0 0 10px #FFA500;
       margin-bottom: 20px;
-      color: #ccc;
     }
 
-    .hero-content a {
-      display: inline-block;
-      background: orange;
-      color: #000;
-      padding: 12px 24px;
-      text-decoration: none;
-      border-radius: 6px;
+    p {
+      color: #ccc;
+      margin-bottom: 30px;
+      font-size: 1rem;
+    }
+
+    /* ---------------- Form ---------------- */
+    form {
+      background: #111;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(255,165,0,0.2);
+      max-width: 700px;
+      margin: 0 auto 50px auto;
+      text-align: left;
+    }
+
+    label {
+      display: block;
       font-weight: bold;
+      margin-top: 15px;
+      color: #FFA500;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      border: none;
+      border-radius: 8px;
+      background: #222;
+      color: #fff;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    button {
+      margin-top: 25px;
+      background: #FFA500;
+      color: #000;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
       transition: 0.3s;
     }
-
-    .hero-content a:hover {
+    button:hover {
       background: #ffb733;
       transform: scale(1.05);
     }
 
-    /* Sections */
-    .section {
-      padding: 60px 20px;
-      max-width: 1200px;
-      margin: 0 auto;
+    .feedback {
+      color: #ccc;
+      font-size: 0.95rem;
+      margin-top: 50px;
     }
 
-    .section h2 {
+    .feedback a {
       color: orange;
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    .features {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
-      justify-content: center;
-    }
-
-    .feature {
-      background: #111;
-      padding: 30px;
-      border-radius: 8px;
-      flex: 1 1 250px;
-      text-align: center;
-      transition: 0.3s;
       text-decoration: none;
-      color: #eee;
-      box-shadow: 0 0 10px rgba(255,165,0,0.1);
     }
 
-    .feature:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px rgba(255,165,0,0.3);
-      background: #181818;
-    }
-
-    .feature h3 {
-      color: orange;
-      margin-bottom: 10px;
-    }
-
-    .text-section {
-      background: #111;
-      border-radius: 8px;
-      padding: 30px;
-      line-height: 1.6;
-    }
-
-    /* Footer */
     footer {
       position: relative;
-      height: 300px;
       background: #222;
       color: #ccc;
       text-align: center;
-      padding: 40px 20px 0 20px;
-      overflow: hidden;
-      font-size: .9rem;
+      padding: 20px 10px;
+      font-size: 0.9rem;
+      border-top: 1px solid #333;
     }
-
-    footer a {
-      color: orange;
-      text-decoration: none;
-      position: relative;
-      z-index: 10;
-    }
-
-    .waveWrapper {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      top: 0;
-      left: 0;
-      background: #222;
-      z-index: 0;
-    }
-
-    .waveWrapperInner {
-      position: absolute;
-      width: 400%;
-      height: 100%;
-      background-repeat: repeat-x;
-      background-position: 0 bottom;
-      transform: translate3d(0, 0, 0);
-    }
-
-    .bgTop { z-index: 15; opacity: .5; }
-    .bgMiddle { z-index: 10; opacity: .75; }
-    .bgBottom { z-index: 5; opacity: 1; }
-
-    .wave {
-      background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 960 120' xmlns='http://www.w3.org/2000/svg'><path fill='%23888888' d='M0 60 C240 0 720 120 960 60 V120 H0 Z'></path></svg>");
-      position: absolute;
-      width: 400%;
-      height: 100%;
-      background-size: contain;
-    }
-
-    .waveTop { animation: moveWave 30s linear infinite; top: -20px; }
-    .waveMiddle { animation: moveWave 40s linear infinite; top: 0; }
-    .waveBottom { animation: moveWave 50s linear infinite; top: 20px; }
-
-    @keyframes moveWave {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
+    footer a { color: orange; text-decoration: none; }
   </style>
 </head>
+
 <body>
 
   <nav>
@@ -263,5 +212,6 @@
 
 </body>
 </html>
+
 
 
