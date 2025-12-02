@@ -44,13 +44,10 @@
       padding: 5px;
       background: rgba(0,0,0,0.8);
       color: white;
-      animation: pulse 2s infinite;
     }
 
-    @keyframes pulse {
-      0% { box-shadow: 0 0 5px orange; }
-      50% { box-shadow: 0 0 15px orange; }
-      100% { box-shadow: 0 0 5px orange; }
+    .leaflet-control-search {
+      max-width: 200px;
     }
   </style>
 </head>
@@ -76,9 +73,7 @@
     // Orte aus JSON laden
     fetch('orte.json')
       .then(response => {
-        if (!response.ok) {
-          throw new Error('Fehler beim Laden von orte.json: ' + response.status);
-        }
+        if (!response.ok) throw new Error('Fehler beim Laden von orte.json');
         return response.json();
       })
       .then(data => {
@@ -86,7 +81,7 @@
           // Marker erstellen
           const marker = L.marker([ort.lat, ort.lng], { title: ort.name });
 
-          // Popup mit Name, Beschreibung und Google Maps Navigation
+          // Popup mit Name, Beschreibung und Google Maps Link
           marker.bindPopup(`
             <div class="custom-popup">
               <b>${ort.name}</b><br>
@@ -97,10 +92,8 @@
             </div>
           `);
 
-          // Marker zum Cluster hinzufügen
+          // Marker zum Cluster und zum Such-Layer hinzufügen
           markerCluster.addLayer(marker);
-
-          // Marker zum Such-Layer hinzufügen
           markersLayer.addLayer(marker);
         });
 
@@ -122,14 +115,14 @@
         });
 
         map.addControl(searchControl);
-
       })
       .catch(err => {
-        console.error('Fehler beim Laden der Orte:', err);
-        alert('Die Ortsdaten konnten nicht geladen werden. Prüfe orte.json und den Server.');
+        console.error(err);
+        alert('Die Ortsdaten konnten nicht geladen werden. Prüfe bitte orte.json und den Server.');
       });
   </script>
 
 </body>
 </html>
+
 
