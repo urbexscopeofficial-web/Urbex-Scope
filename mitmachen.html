@@ -4,7 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Urbex Scope – Mitmachen</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
     body {
       margin: 0;
@@ -16,34 +18,56 @@
     }
     @keyframes fadeIn { to { opacity: 1; } }
 
+    /* ---------------- Navigation Desktop ---------------- */
     nav {
       background: #111;
       padding: 15px 30px;
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: nowrap;
       font-weight: 600;
-      max-height: 120px; /* Maximal zwei Zeilen */
-      overflow: hidden;
     }
-    nav a {
-      color: orange;
-      text-decoration: none;
-      white-space: nowrap;
-      flex: 1 1 calc(50% - 10px); /* Verteilt die Links auf zwei Zeilen */
-      text-align: center;
-    }
-    nav a:hover { text-decoration: underline; }
 
     .site-name {
       color:#FFA500;
       font-weight:bold;
       font-size:1.2rem;
-      margin-right:auto;
       text-shadow:0 0 6px #FFA500;
-      flex: 1 1 100%; /* Name nimmt ganze Zeile */
+      white-space: nowrap;
     }
 
+    nav a {
+      color: orange;
+      text-decoration: none;
+      margin-left: 25px;
+      white-space: nowrap;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* ---------------- Navigation Mobile ---------------- */
+    @media (max-width: 700px) {
+      nav {
+        flex-wrap: wrap;
+        text-align: center;
+      }
+
+      .site-name {
+        flex: 1 1 100%;
+        margin-bottom: 10px;
+      }
+
+      nav a {
+        flex: 1 1 50%;
+        margin-left: 0;
+        padding: 8px 0;
+      }
+    }
+
+    /* ---------------- Inhalt ---------------- */
     .content {
       padding: 60px 20px 120px;
       max-width: 900px;
@@ -64,6 +88,7 @@
       font-size: 1rem;
     }
 
+    /* ---------------- Form ---------------- */
     form {
       background: #111;
       padding: 30px;
@@ -135,24 +160,11 @@
       border-top: 1px solid #333;
     }
     footer a { color: orange; text-decoration: none; }
-
-    /* Mobile Anpassungen */
-    @media (max-width: 600px) {
-      nav {
-        max-height: none; /* erlauben flex-wrap auf kleineren Bildschirmen */
-      }
-      nav a {
-        flex: 1 1 50%; /* maximal zwei Zeilen */
-      }
-      h1 { font-size: 1.8rem; }
-      p { font-size: 0.95rem; }
-      form { padding: 20px; }
-      input, textarea { font-size: 0.95rem; }
-      button { padding: 10px 20px; font-size: 0.95rem; }
-    }
   </style>
 </head>
+
 <body>
+
   <nav>
     <span class="site-name">Urbex Scope</span>
     <a href="index.html">Start</a>
@@ -164,7 +176,7 @@
 
   <div class="content">
     <h1>Mach mit!</h1>
-    <p>Du kennst einen verlassenen Ort, der auf Urbex Scope nicht fehlen darf?  
+    <p>Du kennst einen verlassenen Ort, der auf Urbex Scope nicht fehlen darf?<br>
        Teile ihn mit uns und werde Teil der Community!</p>
 
     <form action="https://formsubmit.co/urbexscope.official@gmail.com" method="POST">
@@ -197,6 +209,7 @@
     <a href="impressum.html">Impressum</a> |
     <a href="rechtliches.html">Datenschutz</a>
   </footer>
+
 </body>
 </html>
 
