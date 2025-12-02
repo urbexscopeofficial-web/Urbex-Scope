@@ -46,9 +46,20 @@
       color: white;
     }
 
+    /* Geocoder Suchleiste sichtbar, breiter und optisch angepasst */
     .leaflet-control-geocoder {
-      max-width: 250px;
+      max-width: 400px;
       z-index: 1000;
+    }
+
+    .leaflet-control-geocoder-form input {
+      height: 35px;
+      font-size: 1rem;
+      padding: 5px 10px;
+      border-radius: 8px;
+      border: 2px solid orange;
+      background: #222;
+      color: #fff;
     }
   </style>
 </head>
@@ -99,24 +110,28 @@
       })
       .catch(err => {
         console.error(err);
-        alert('');
+        alert('Die Ortsdaten konnten nicht geladen werden. Prüfe bitte orte.json und den Server.');
       });
 
     // Geocoder-Suche für Städte/Bundesländer weltweit
-    L.Control.geocoder({
+    const geocoder = L.Control.geocoder({
         defaultMarkGeocode: false,
         placeholder: 'Stadt oder Bundesland suchen…'
-    })
-    .on('markgeocode', function(e) {
+    }).addTo(map);
+
+    // Textbox sofort sichtbar machen
+    const form = document.querySelector('.leaflet-control-geocoder-form');
+    if(form) form.style.display = 'block';
+
+    // Aktion beim Finden eines Ortes
+    geocoder.on('markgeocode', function(e) {
         const bbox = e.geocode.bbox;
         if (bbox) {
             map.fitBounds(bbox);
         } else if (e.geocode.center) {
             map.setView(e.geocode.center, 10);
         }
-    })
-    .addTo(map);
-
+    });
   </script>
 
 </body>
