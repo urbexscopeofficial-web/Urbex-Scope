@@ -1,29 +1,31 @@
-# Urbex Scope
+# Urbex Scope – Lost Places Europa
 
-**Urbex Scope** ist ein Projekt, das sich der Dokumentation und Präsentation von verlassenen Orten (Lost Places) widmet. Ziel ist es, verlassene Gebäude, Fabriken und andere urbane Orte fotografisch und beschreibend festzuhalten und einem breiten Publikum zugänglich zu machen.
+**Urbex Scope** ist eine Plattform für Urban Exploration in Europa. Entdecke verlassene Orte, dokumentiere sie und bleibe anonym Teil einer wachsenden Community von Urbex-Fans.
 
-## Projektübersicht
+Die Webseite bietet eine interaktive Karte, eine Galerie mit beeindruckenden Fotos und täglich einen neuen Lost Place als Inspiration.
 
-- **Thema:** Urbex / Lost Places  
-- **Ziel:** Sichtbarmachung und Bewahrung von verlassenen Orten  
-- **Inhalt:**  
-  - Fotos und Beschreibungen der Orte  
-  - Historische Hintergründe  
-  - Status der Gebäude (verfallen, teilweise erhalten, zugänglich oder gesperrt)  
-- **Nutzer:** Urbex-Fans, Fotografen, Historiker und Interessierte  
+---
 
 ## Funktionen
 
-- Anzeige von Lost Places mit Standort und Beschreibung  
-- Einfache Navigation durch die Galerie  
-- Responsives Design für Desktop und mobile Geräte  
-
-## Zukunftspläne
-
-- Erweiterung der Galerie um neue Orte  
-- Interaktive Kartenansicht der dokumentierten Orte  
-- Möglichkeit für Nutzer, eigene Beiträge einzureichen  
+- **Karte** – Interaktive Übersicht aller erfassten Lost Places in Europa.  
+- **Galerie** – Sammlung von Bildern von verlassenen Orten, die von der Community beigesteuert werden.  
+- **Daily** – Jeden Tag ein neuer Lost Place, um die urbex-Welt täglich zu entdecken.  
+- **Mitmachen** – Füge neue Orte hinzu und unterstütze den Ausbau der Urbex Scope Community – alles anonym.
 
 ---
+
+## Mission
+
+Urbex Scope verbindet Menschen, die Europas vergessene Orte mit Respekt erkunden, dokumentieren und bewahren.
+
+---
+
+## Für Entwickler
+
+1. Repository klonen:
+   ```bash
+   git clone https://github.com/deinusername/urbex-scope.git
+
 
 Dieses Projekt wird mit HTML, CSS und JavaScript erstellt und über GitHub Pages veröffentlicht.
