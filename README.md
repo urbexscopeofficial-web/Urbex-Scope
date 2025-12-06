@@ -21,11 +21,5 @@ Urbex Scope verbindet Menschen, die Europas vergessene Orte mit Respekt erkunden
 
 ---
 
-## Für Entwickler
-
-1. Repository klonen:
-   ```bash
-   git clone https://github.com/deinusername/urbex-scope.git
-
 
 Dieses Projekt wird mit HTML, CSS und JavaScript erstellt und über GitHub Pages veröffentlicht.
