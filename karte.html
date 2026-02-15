@@ -85,11 +85,12 @@
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    // Marker Cluster erstellen
-    const markerCluster = L.markerClusterGroup();
-
-    // Layer für die Marker
-    const markersLayer = new L.LayerGroup();
+    // Marker Cluster erstellen mit chunkedLoading für bessere Performance
+    const markerCluster = L.markerClusterGroup({
+      chunkedLoading: true,
+      chunkInterval: 200,
+      chunkDelay: 50
+    });
 
     // Orte aus JSON laden
     fetch('orte.json')
@@ -112,7 +113,6 @@
           `);
 
           markerCluster.addLayer(marker);
-          markersLayer.addLayer(marker);
         });
 
         map.addLayer(markerCluster);
@@ -145,6 +145,8 @@
 
 </body>
 </html>
+
+
 
 
 
