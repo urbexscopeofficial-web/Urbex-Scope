@@ -55,24 +55,72 @@
       color: white;
     }
 
-    /* Geocoder Suchleiste weiß mit schwarzen Akzenten */
+    /* =========================
+       SUCHFELD – DARK URBEX STYLE
+       ========================= */
+
     .leaflet-control-geocoder {
-      max-width: 400px;  /* Breite */
+      max-width: 420px;
       z-index: 1000;
     }
 
     .leaflet-control-geocoder-form input {
-      height: 35px;          /* Höhe der Eingabe */
-      font-size: 1rem;       /* Textgröße */
-      padding: 5px 10px;     /* Innenabstand */
-      border-radius: 8px;    /* abgerundete Ecken */
-      border: 2px solid #000; /* Schwarzer Rahmen */
-      background: #fff;      /* Weißer Hintergrund */
-      color: #000;           /* Schwarzer Text */
+      height: 42px;
+      font-size: 1rem;
+      padding: 8px 14px;
+      border-radius: 12px;
+      border: 2px solid orange;
+      background: #111;
+      color: #fff;
+      outline: none;
+      box-shadow: 0 0 10px rgba(255,165,0,0.4);
+      transition: 0.2s ease;
     }
+
+    .leaflet-control-geocoder-form input:focus {
+      box-shadow: 0 0 15px rgba(255,165,0,0.8);
+      border-color: #ff8800;
+    }
+
+    /* =========================
+       LADE-SCREEN
+       ========================= */
+
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    #loader img {
+      width: 120px;
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.7; }
+    }
+
+    #loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
   </style>
 </head>
 <body>
+
+  <!-- Lade-Screen -->
+  <div id="loader">
+    <img src="logo.jpg" alt="Urbex Scope Logo">
+  </div>
 
   <div id="map"></div>
 
@@ -85,14 +133,14 @@
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    // Marker Cluster erstellen mit chunkedLoading für bessere Performance
+    // Marker Cluster mit chunkedLoading
     const markerCluster = L.markerClusterGroup({
       chunkedLoading: true,
       chunkInterval: 200,
       chunkDelay: 50
     });
 
-    // Orte aus JSON laden
+    // Orte laden
     fetch('orte.json')
       .then(response => {
         if (!response.ok) throw new Error('Fehler beim Laden von orte.json');
@@ -116,23 +164,24 @@
         });
 
         map.addLayer(markerCluster);
+
+        // Loader ausblenden
+        document.getElementById('loader').classList.add('hidden');
       })
       .catch(err => {
         console.error(err);
         alert('Die Ortsdaten konnten nicht geladen werden. Prüfe bitte orte.json und den Server.');
       });
 
-    // Geocoder-Suche für Städte/Bundesländer weltweit
+    // Geocoder
     const geocoder = L.Control.geocoder({
         defaultMarkGeocode: false,
         placeholder: 'Stadt oder Bundesland suchen…'
     }).addTo(map);
 
-    // Textbox sofort sichtbar machen
     const form = document.querySelector('.leaflet-control-geocoder-form');
     if(form) form.style.display = 'block';
 
-    // Aktion beim Finden eines Ortes
     geocoder.on('markgeocode', function(e) {
         const bbox = e.geocode.bbox;
         if (bbox) {
@@ -145,6 +194,7 @@
 
 </body>
 </html>
+
 
 
 
