@@ -124,6 +124,59 @@
 
   <div id="map"></div>
 
+  <!-- =========================
+       HAFTUNGSAUSSCHLUSS POPUP
+       ========================= -->
+  <div id="disclaimer-overlay" style="position:fixed; inset:0; background:rgba(0,0,0,0.7); backdrop-filter:blur(5px); display:flex; justify-content:center; align-items:center; z-index:10000;">
+    <div id="disclaimer-popup" style="background:#111; border:2px solid orange; border-radius:12px; padding:30px; max-width:500px; color:#eee; font-family:'Unbounded', sans-serif; text-align:left;">
+      <h2 style="margin-top:0; color:orange;">Hinweis zur Nutzung der Karte</h2>
+      <p style="line-height:1.5;">
+        Die auf Urbex Scope dargestellten Orte dienen ausschließlich zu Informations- und Dokumentationszwecken.<br><br>
+        Das Betreten dieser Orte kann illegal sein (z. B. Hausfriedensbruch) und erfolgt ausschließlich auf eigene Verantwortung.<br><br>
+        Der Betreiber dieser Website übernimmt keinerlei Haftung für Schäden, Verletzungen oder rechtliche Konsequenzen, die durch die Nutzung der bereitgestellten Informationen entstehen.<br><br>
+        Bitte beachte, dass die Navigation über <b>Google Maps</b> ungenau sein kann und nicht den exakten Standort eines Ortes widerspiegelt.<br><br>
+        Nutzer verpflichten sich, geltende Gesetze einzuhalten und Orte nicht unbefugt zu betreten.
+      </p>
+
+      <div style="margin:15px 0;">
+        <input type="checkbox" id="disclaimer-checkbox">
+        <label for="disclaimer-checkbox">Ich habe den Hinweis gelesen und akzeptiere die Bedingungen</label>
+      </div>
+
+      <div style="text-align:right; margin-top:20px;">
+        <button id="disclaimer-cancel" style="background:#222; color:orange; border:2px solid orange; border-radius:8px; padding:8px 16px; margin-right:10px; cursor:pointer;">Abbrechen</button>
+        <button id="disclaimer-accept" disabled style="background:orange; color:#111; border:none; border-radius:8px; padding:8px 16px; cursor:pointer;">Verstanden & zur Karte</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const overlay = document.getElementById('disclaimer-overlay');
+    const checkbox = document.getElementById('disclaimer-checkbox');
+    const acceptBtn = document.getElementById('disclaimer-accept');
+    const cancelBtn = document.getElementById('disclaimer-cancel');
+
+    // Button nur aktiv, wenn Checkbox angehakt
+    checkbox.addEventListener('change', () => {
+      acceptBtn.disabled = !checkbox.checked;
+    });
+
+    // Weiter zur Karte
+    acceptBtn.addEventListener('click', () => {
+      overlay.style.display = 'none';
+      document.body.style.overflow = '';
+    });
+
+    // Abbrechen → zurück zur Startseite
+    cancelBtn.addEventListener('click', () => {
+      document.body.style.overflow = '';
+      window.location.href = 'index.html';
+    });
+
+    // Hintergrund sperren, bis Popup bestätigt
+    document.body.style.overflow = 'hidden';
+  </script>
+
   <script>
     // Karte initialisieren
     const map = L.map('map').setView([51.1657, 10.4515], 6);
@@ -194,11 +247,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
