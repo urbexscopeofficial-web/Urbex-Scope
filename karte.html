@@ -138,33 +138,34 @@
         Nutzer verpflichten sich, geltende Gesetze einzuhalten und Orte nicht unbefugt zu betreten.
       </p>
 
-      <div style="margin:15px 0;">
-        <input type="checkbox" id="disclaimer-checkbox">
-        <label for="disclaimer-checkbox">Ich habe den Hinweis gelesen und akzeptiere die Bedingungen</label>
-      </div>
-
       <div style="text-align:right; margin-top:20px;">
         <button id="disclaimer-cancel" style="background:#222; color:orange; border:2px solid orange; border-radius:8px; padding:8px 16px; margin-right:10px; cursor:pointer;">Abbrechen</button>
-        <button id="disclaimer-accept" disabled style="background:orange; color:#111; border:none; border-radius:8px; padding:8px 16px; cursor:pointer;">Verstanden & zur Karte</button>
+        <button id="disclaimer-accept" style="background:orange; color:#111; border:none; border-radius:8px; padding:8px 16px; cursor:pointer;">Verstanden & zur Karte</button>
       </div>
     </div>
   </div>
 
   <script>
     const overlay = document.getElementById('disclaimer-overlay');
-    const checkbox = document.getElementById('disclaimer-checkbox');
     const acceptBtn = document.getElementById('disclaimer-accept');
     const cancelBtn = document.getElementById('disclaimer-cancel');
+    const loader = document.getElementById('loader');
 
-    // Button nur aktiv, wenn Checkbox angehakt
-    checkbox.addEventListener('change', () => {
-      acceptBtn.disabled = !checkbox.checked;
-    });
-
-    // Weiter zur Karte
+    // Popup akzeptieren
     acceptBtn.addEventListener('click', () => {
       overlay.style.display = 'none';
-      document.body.style.overflow = '';
+      document.body.style.overflow = 'hidden'; // Hintergrund gesperrt während Loader
+
+      // Loader kurz einblenden (~2,5 Sekunden)
+      if(loader) {
+        loader.style.display = 'flex';
+        setTimeout(() => {
+          loader.classList.add('hidden'); // CSS Transition blendet Logo aus
+          document.body.style.overflow = ''; // Scroll wieder erlauben
+        }, 2500);
+      } else {
+        document.body.style.overflow = '';
+      }
     });
 
     // Abbrechen → zurück zur Startseite
@@ -218,8 +219,13 @@
 
         map.addLayer(markerCluster);
 
-        // Loader ausblenden
-        document.getElementById('loader').classList.add('hidden');
+        // Loader nach Laden der Karte ausblenden (falls Popup schon weg)
+        if(loader && !overlay.style.display || overlay.style.display === 'none') {
+          setTimeout(() => {
+            loader.classList.add('hidden');
+            document.body.style.overflow = '';
+          }, 0);
+        }
       })
       .catch(err => {
         console.error(err);
